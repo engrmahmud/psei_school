@@ -1,0 +1,27 @@
+class: Teacher
+table: teacher
+fields:
+  id: int?
+  teacherName: String
+  department: String
+  designation: String
+  qualification: String
+  joiningDate: DateTime
+  dateOfBirth: DateTime
+  gender: String
+  religion: String
+  bloodGroup: String
+  nationality: String
+  fatherName: String
+  motherName: String
+  email: String
+  phone: String
+  address: String
+  permanentAddress: String
+  registration: String
+  password: String
+  experience: int
+  profileImage: String?
+  maritalStatus: String
+  salary: double
+

@@ -1,0 +1,9 @@
+class: Course
+table: course
+fields:
+  id: int?
+  courseName: String
+  subjectCode: String
+  description: String?
+  classLevel: int        # e.g. 1, 2, 3, 4
+  teacherId: int         # FK → Teacher.id

@@ -1,0 +1,8 @@
+class: StudentCourse
+table: student_course
+fields:
+  id: int?
+  studentId: int         # FK → Student.id
+  courseId: int          # FK → Course.id
+  marks: double?         # nullable, teacher can assign later
+  enrollmentDate: DateTime

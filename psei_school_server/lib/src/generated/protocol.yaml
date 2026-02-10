@@ -1,0 +1,26 @@
+emailIdp:
+  - login:
+  - startRegistration:
+  - verifyRegistrationCode:
+  - finishRegistration:
+  - startPasswordReset:
+  - verifyPasswordResetCode:
+  - finishPasswordReset:
+jwtRefresh:
+  - refreshAccessToken:
+auth:
+  - verifyAdmin:
+studentEndpoints:
+  - createStudent:
+  - getStudents:
+  - getStudentById:
+  - updateStudentById:
+  - deleteStudentById:
+  - searchStudents:
+teacherEndpoints:
+  - createTeacher:
+  - getTeachers:
+  - getTeacherById:
+  - updateTeacherById:
+  - deleteTeacherById:
+  - searchTeachers:

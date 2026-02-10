@@ -1,0 +1,22 @@
+class: Student
+table: student
+fields:
+  id: int?
+  academicYear: String
+  admissionDate: DateTime
+  studentName: String
+  dateOfBirth: DateTime
+  gender: String
+  religion: String
+  bloodGroup: String
+  nationality: String
+  fatherName: String
+  motherName: String
+  email: String
+  phone: String
+  address: String
+  studentClass: String
+  section: String
+  roll: String
+  registration: String
+  password: String
