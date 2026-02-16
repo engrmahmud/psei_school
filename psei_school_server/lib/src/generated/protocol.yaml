@@ -10,6 +10,13 @@ jwtRefresh:
   - refreshAccessToken:
 auth:
   - verifyAdmin:
+courseEndpoints:
+  - createCourse:
+  - getCourses:
+  - getCourseById:
+  - updateCourseById:
+  - deleteCourseById:
+  - searchCourses:
 studentEndpoints:
   - createStudent:
   - getStudents:

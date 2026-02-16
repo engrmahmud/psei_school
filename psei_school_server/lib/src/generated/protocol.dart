@@ -20,13 +20,16 @@ import 'admin_model.dart' as _i5;
 import 'course_model.dart' as _i6;
 import 'student_course_model.dart' as _i7;
 import 'student_model.dart' as _i8;
-import 'teacher_model.dart' as _i9;
-import 'package:psei_school_server/src/generated/student_model.dart' as _i10;
-import 'package:psei_school_server/src/generated/teacher_model.dart' as _i11;
+import 'teacher_course_model.dart' as _i9;
+import 'teacher_model.dart' as _i10;
+import 'package:psei_school_server/src/generated/course_model.dart' as _i11;
+import 'package:psei_school_server/src/generated/student_model.dart' as _i12;
+import 'package:psei_school_server/src/generated/teacher_model.dart' as _i13;
 export 'admin_model.dart';
 export 'course_model.dart';
 export 'student_course_model.dart';
 export 'student_model.dart';
+export 'teacher_course_model.dart';
 export 'teacher_model.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -515,6 +518,62 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'teacher_course',
+      dartName: 'TeacherCourse',
+      schema: 'public',
+      module: 'psei_school',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'teacher_course_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'teacherId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'courseId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'assignedDate',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: false,
+          dartType: 'DateTime',
+        ),
+        _i2.ColumnDefinition(
+          name: 'role',
+          columnType: _i2.ColumnType.text,
+          isNullable: true,
+          dartType: 'String?',
+        ),
+      ],
+      foreignKeys: [],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'teacher_course_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            ),
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+      ],
+      managed: true,
+    ),
     ..._i3.Protocol.targetTableDefinitions,
     ..._i4.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
@@ -559,8 +618,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i8.Student) {
       return _i8.Student.fromJson(data) as T;
     }
-    if (t == _i9.Teacher) {
-      return _i9.Teacher.fromJson(data) as T;
+    if (t == _i9.TeacherCourse) {
+      return _i9.TeacherCourse.fromJson(data) as T;
+    }
+    if (t == _i10.Teacher) {
+      return _i10.Teacher.fromJson(data) as T;
     }
     if (t == _i1.getType<_i5.Admin?>()) {
       return (data != null ? _i5.Admin.fromJson(data) : null) as T;
@@ -574,15 +636,22 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i8.Student?>()) {
       return (data != null ? _i8.Student.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i9.Teacher?>()) {
-      return (data != null ? _i9.Teacher.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i9.TeacherCourse?>()) {
+      return (data != null ? _i9.TeacherCourse.fromJson(data) : null) as T;
     }
-    if (t == List<_i10.Student>) {
-      return (data as List).map((e) => deserialize<_i10.Student>(e)).toList()
+    if (t == _i1.getType<_i10.Teacher?>()) {
+      return (data != null ? _i10.Teacher.fromJson(data) : null) as T;
+    }
+    if (t == List<_i11.Course>) {
+      return (data as List).map((e) => deserialize<_i11.Course>(e)).toList()
           as T;
     }
-    if (t == List<_i11.Teacher>) {
-      return (data as List).map((e) => deserialize<_i11.Teacher>(e)).toList()
+    if (t == List<_i12.Student>) {
+      return (data as List).map((e) => deserialize<_i12.Student>(e)).toList()
+          as T;
+    }
+    if (t == List<_i13.Teacher>) {
+      return (data as List).map((e) => deserialize<_i13.Teacher>(e)).toList()
           as T;
     }
     try {
@@ -603,7 +672,8 @@ class Protocol extends _i1.SerializationManagerServer {
       _i6.Course => 'Course',
       _i7.StudentCourse => 'StudentCourse',
       _i8.Student => 'Student',
-      _i9.Teacher => 'Teacher',
+      _i9.TeacherCourse => 'TeacherCourse',
+      _i10.Teacher => 'Teacher',
       _ => null,
     };
   }
@@ -626,7 +696,9 @@ class Protocol extends _i1.SerializationManagerServer {
         return 'StudentCourse';
       case _i8.Student():
         return 'Student';
-      case _i9.Teacher():
+      case _i9.TeacherCourse():
+        return 'TeacherCourse';
+      case _i10.Teacher():
         return 'Teacher';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -662,8 +734,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (dataClassName == 'Student') {
       return deserialize<_i8.Student>(data['data']);
     }
+    if (dataClassName == 'TeacherCourse') {
+      return deserialize<_i9.TeacherCourse>(data['data']);
+    }
     if (dataClassName == 'Teacher') {
-      return deserialize<_i9.Teacher>(data['data']);
+      return deserialize<_i10.Teacher>(data['data']);
     }
     if (dataClassName.startsWith('serverpod.')) {
       data['className'] = dataClassName.substring(10);
@@ -709,8 +784,10 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i7.StudentCourse.t;
       case _i8.Student:
         return _i8.Student.t;
-      case _i9.Teacher:
-        return _i9.Teacher.t;
+      case _i9.TeacherCourse:
+        return _i9.TeacherCourse.t;
+      case _i10.Teacher:
+        return _i10.Teacher.t;
     }
     return null;
   }

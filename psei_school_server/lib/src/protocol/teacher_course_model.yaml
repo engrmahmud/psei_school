@@ -1,0 +1,8 @@
+class: TeacherCourse
+table: teacher_course
+fields:
+  id: int?
+  teacherId: int       # FK → Teacher.id
+  courseId: int        # FK → Course.id
+  assignedDate: DateTime
+  role: String?        # e.g., "Lead Instructor", "Assistant"

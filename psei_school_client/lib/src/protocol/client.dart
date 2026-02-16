@@ -17,9 +17,12 @@ import 'dart:async' as _i3;
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart'
     as _i4;
 import 'package:psei_school_client/src/protocol/admin_model.dart' as _i5;
-import 'package:psei_school_client/src/protocol/student_model.dart' as _i6;
-import 'package:psei_school_client/src/protocol/teacher_model.dart' as _i7;
-import 'protocol.dart' as _i8;
+import 'package:psei_school_client/src/protocol/course_model.dart' as _i6;
+import 'package:psei_school_client/src/protocol/student_model.dart' as _i7;
+import 'package:psei_school_client/src/protocol/teacher_model.dart' as _i8;
+import 'package:psei_school_client/src/protocol/student_course_model.dart' as _i10;
+import 'package:psei_school_client/src/protocol/teacher_course_model.dart' as _i11;
+import 'protocol.dart' as _i9;
 
 /// By extending [EmailIdpBaseEndpoint], the email identity provider endpoints
 /// are made available on the server and enable the corresponding sign-in widget
@@ -256,37 +259,100 @@ class EndpointAuth extends _i2.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointCourseEndpoints extends _i2.EndpointRef {
+  EndpointCourseEndpoints(_i2.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'courseEndpoints';
+
+  _i3.Future<_i6.Course> createCourse(_i6.Course course) =>
+      caller.callServerEndpoint<_i6.Course>(
+        'courseEndpoints',
+        'createCourse',
+        {'course': course},
+      );
+
+  _i3.Future<List<_i6.Course>> getCourses() =>
+      caller.callServerEndpoint<List<_i6.Course>>(
+        'courseEndpoints',
+        'getCourses',
+        {},
+      );
+
+  _i3.Future<_i6.Course?> getCourseById(int id) =>
+      caller.callServerEndpoint<_i6.Course?>(
+        'courseEndpoints',
+        'getCourseById',
+        {'id': id},
+      );
+
+  _i3.Future<_i6.Course?> updateCourseById(
+    int id,
+    _i6.Course course,
+  ) => caller.callServerEndpoint<_i6.Course?>(
+    'courseEndpoints',
+    'updateCourseById',
+    {
+      'id': id,
+      'course': course,
+    },
+  );
+
+  _i3.Future<bool> deleteCourseById(int id) => caller.callServerEndpoint<bool>(
+    'courseEndpoints',
+    'deleteCourseById',
+    {'id': id},
+  );
+
+  _i3.Future<List<_i6.Course>> searchCourses({
+    String? courseName,
+    String? subjectCode,
+    int? classLevel,
+    int? teacherId,
+  }) => caller.callServerEndpoint<List<_i6.Course>>(
+    'courseEndpoints',
+    'searchCourses',
+    {
+      'courseName': courseName,
+      'subjectCode': subjectCode,
+      'classLevel': classLevel,
+      'teacherId': teacherId,
+    },
+  );
+}
+
+/// {@category Endpoint}
 class EndpointStudentEndpoints extends _i2.EndpointRef {
   EndpointStudentEndpoints(_i2.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'studentEndpoints';
 
-  _i3.Future<_i6.Student> createStudent(_i6.Student student) =>
-      caller.callServerEndpoint<_i6.Student>(
+  _i3.Future<_i7.Student> createStudent(_i7.Student student) =>
+      caller.callServerEndpoint<_i7.Student>(
         'studentEndpoints',
         'createStudent',
         {'student': student},
       );
 
-  _i3.Future<List<_i6.Student>> getStudents() =>
-      caller.callServerEndpoint<List<_i6.Student>>(
+  _i3.Future<List<_i7.Student>> getStudents() =>
+      caller.callServerEndpoint<List<_i7.Student>>(
         'studentEndpoints',
         'getStudents',
         {},
       );
 
-  _i3.Future<_i6.Student?> getStudentById(int id) =>
-      caller.callServerEndpoint<_i6.Student?>(
+  _i3.Future<_i7.Student?> getStudentById(int id) =>
+      caller.callServerEndpoint<_i7.Student?>(
         'studentEndpoints',
         'getStudentById',
         {'id': id},
       );
 
-  _i3.Future<_i6.Student?> updateStudentById(
+  _i3.Future<_i7.Student?> updateStudentById(
     int id,
-    _i6.Student student,
-  ) => caller.callServerEndpoint<_i6.Student?>(
+    _i7.Student student,
+  ) => caller.callServerEndpoint<_i7.Student?>(
     'studentEndpoints',
     'updateStudentById',
     {
@@ -301,13 +367,13 @@ class EndpointStudentEndpoints extends _i2.EndpointRef {
     {'id': id},
   );
 
-  _i3.Future<List<_i6.Student>> searchStudents({
+  _i3.Future<List<_i7.Student>> searchStudents({
     String? name,
     int? id,
     String? roll,
     String? registration,
     String? studentClass,
-  }) => caller.callServerEndpoint<List<_i6.Student>>(
+  }) => caller.callServerEndpoint<List<_i7.Student>>(
     'studentEndpoints',
     'searchStudents',
     {
@@ -327,31 +393,31 @@ class EndpointTeacherEndpoints extends _i2.EndpointRef {
   @override
   String get name => 'teacherEndpoints';
 
-  _i3.Future<_i7.Teacher> createTeacher(_i7.Teacher teacher) =>
-      caller.callServerEndpoint<_i7.Teacher>(
+  _i3.Future<_i8.Teacher> createTeacher(_i8.Teacher teacher) =>
+      caller.callServerEndpoint<_i8.Teacher>(
         'teacherEndpoints',
         'createTeacher',
         {'teacher': teacher},
       );
 
-  _i3.Future<List<_i7.Teacher>> getTeachers() =>
-      caller.callServerEndpoint<List<_i7.Teacher>>(
+  _i3.Future<List<_i8.Teacher>> getTeachers() =>
+      caller.callServerEndpoint<List<_i8.Teacher>>(
         'teacherEndpoints',
         'getTeachers',
         {},
       );
 
-  _i3.Future<_i7.Teacher?> getTeacherById(int id) =>
-      caller.callServerEndpoint<_i7.Teacher?>(
+  _i3.Future<_i8.Teacher?> getTeacherById(int id) =>
+      caller.callServerEndpoint<_i8.Teacher?>(
         'teacherEndpoints',
         'getTeacherById',
         {'id': id},
       );
 
-  _i3.Future<_i7.Teacher?> updateTeacherById(
+  _i3.Future<_i8.Teacher?> updateTeacherById(
     int id,
-    _i7.Teacher teacher,
-  ) => caller.callServerEndpoint<_i7.Teacher?>(
+    _i8.Teacher teacher,
+  ) => caller.callServerEndpoint<_i8.Teacher?>(
     'teacherEndpoints',
     'updateTeacherById',
     {
@@ -366,12 +432,12 @@ class EndpointTeacherEndpoints extends _i2.EndpointRef {
     {'id': id},
   );
 
-  _i3.Future<List<_i7.Teacher>> searchTeachers({
+  _i3.Future<List<_i8.Teacher>> searchTeachers({
     String? name,
     int? id,
     String? department,
     String? designation,
-  }) => caller.callServerEndpoint<List<_i7.Teacher>>(
+  }) => caller.callServerEndpoint<List<_i8.Teacher>>(
     'teacherEndpoints',
     'searchTeachers',
     {
@@ -379,6 +445,214 @@ class EndpointTeacherEndpoints extends _i2.EndpointRef {
       'id': id,
       'department': department,
       'designation': designation,
+    },
+  );
+}
+
+/// {@category Endpoint}
+class EndpointStudentCourseEndpoints extends _i2.EndpointRef {
+  EndpointStudentCourseEndpoints(_i2.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'studentCourseEndpoints';
+
+  _i3.Future<_i10.StudentCourse> assignStudentToCourse({
+    required int studentId,
+    required int courseId,
+  }) => caller.callServerEndpoint<_i10.StudentCourse>(
+    'studentCourseEndpoints',
+    'assignStudentToCourse',
+    {
+      'studentId': studentId,
+      'courseId': courseId,
+    },
+  );
+
+  _i3.Future<List<_i10.StudentCourse>> getStudentCoursesByCourse(int courseId) =>
+      caller.callServerEndpoint<List<_i10.StudentCourse>>(
+        'studentCourseEndpoints',
+        'getStudentCoursesByCourse',
+        {'courseId': courseId},
+      );
+
+  _i3.Future<List<_i10.StudentCourse>> getStudentCoursesByStudent(int studentId) =>
+      caller.callServerEndpoint<List<_i10.StudentCourse>>(
+        'studentCourseEndpoints',
+        'getStudentCoursesByStudent',
+        {'studentId': studentId},
+      );
+
+  _i3.Future<_i10.StudentCourse?> updateStudentCourseMarks({
+    required int studentCourseId,
+    double? marks,
+  }) => caller.callServerEndpoint<_i10.StudentCourse?>(
+    'studentCourseEndpoints',
+    'updateStudentCourseMarks',
+    {
+      'studentCourseId': studentCourseId,
+      'marks': marks,
+    },
+  );
+
+  _i3.Future<bool> unassignStudentFromCourse({
+    required int studentId,
+    required int courseId,
+  }) => caller.callServerEndpoint<bool>(
+    'studentCourseEndpoints',
+    'unassignStudentFromCourse',
+    {
+      'studentId': studentId,
+      'courseId': courseId,
+    },
+  );
+
+  _i3.Future<bool> deleteStudentCourseById(int id) =>
+      caller.callServerEndpoint<bool>(
+        'studentCourseEndpoints',
+        'deleteStudentCourseById',
+        {'id': id},
+      );
+
+  _i3.Future<List<_i7.Student>> getStudentsByCourse(int courseId) =>
+      caller.callServerEndpoint<List<_i7.Student>>(
+        'studentCourseEndpoints',
+        'getStudentsByCourse',
+        {'courseId': courseId},
+      );
+
+  _i3.Future<List<_i6.Course>> getCoursesByStudent(int studentId) =>
+      caller.callServerEndpoint<List<_i6.Course>>(
+        'studentCourseEndpoints',
+        'getCoursesByStudent',
+        {'studentId': studentId},
+      );
+
+  _i3.Future<bool> isStudentEnrolled({
+    required int studentId,
+    required int courseId,
+  }) => caller.callServerEndpoint<bool>(
+    'studentCourseEndpoints',
+    'isStudentEnrolled',
+    {
+      'studentId': studentId,
+      'courseId': courseId,
+    },
+  );
+
+  _i3.Future<List<_i10.StudentCourse>> bulkAssignStudentsToCourse({
+    required List<int> studentIds,
+    required int courseId,
+  }) => caller.callServerEndpoint<List<_i10.StudentCourse>>(
+    'studentCourseEndpoints',
+    'bulkAssignStudentsToCourse',
+    {
+      'studentIds': studentIds,
+      'courseId': courseId,
+    },
+  );
+}
+
+/// {@category Endpoint}
+class EndpointTeacherCourseEndpoints extends _i2.EndpointRef {
+  EndpointTeacherCourseEndpoints(_i2.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'teacherCourseEndpoints';
+
+  _i3.Future<_i11.TeacherCourse> assignTeacherToCourse({
+    required int teacherId,
+    required int courseId,
+    String? role,
+  }) => caller.callServerEndpoint<_i11.TeacherCourse>(
+    'teacherCourseEndpoints',
+    'assignTeacherToCourse',
+    {
+      'teacherId': teacherId,
+      'courseId': courseId,
+      'role': role,
+    },
+  );
+
+  _i3.Future<List<_i11.TeacherCourse>> getTeacherCoursesByCourse(int courseId) =>
+      caller.callServerEndpoint<List<_i11.TeacherCourse>>(
+        'teacherCourseEndpoints',
+        'getTeacherCoursesByCourse',
+        {'courseId': courseId},
+      );
+
+  _i3.Future<List<_i11.TeacherCourse>> getTeacherCoursesByTeacher(int teacherId) =>
+      caller.callServerEndpoint<List<_i11.TeacherCourse>>(
+        'teacherCourseEndpoints',
+        'getTeacherCoursesByTeacher',
+        {'teacherId': teacherId},
+      );
+
+  _i3.Future<_i11.TeacherCourse?> updateTeacherCourseRole({
+    required int teacherCourseId,
+    String? role,
+  }) => caller.callServerEndpoint<_i11.TeacherCourse?>(
+    'teacherCourseEndpoints',
+    'updateTeacherCourseRole',
+    {
+      'teacherCourseId': teacherCourseId,
+      'role': role,
+    },
+  );
+
+  _i3.Future<bool> unassignTeacherFromCourse({
+    required int teacherId,
+    required int courseId,
+  }) => caller.callServerEndpoint<bool>(
+    'teacherCourseEndpoints',
+    'unassignTeacherFromCourse',
+    {
+      'teacherId': teacherId,
+      'courseId': courseId,
+    },
+  );
+
+  _i3.Future<bool> deleteTeacherCourseById(int id) =>
+      caller.callServerEndpoint<bool>(
+        'teacherCourseEndpoints',
+        'deleteTeacherCourseById',
+        {'id': id},
+      );
+
+  _i3.Future<List<_i8.Teacher>> getTeachersByCourse(int courseId) =>
+      caller.callServerEndpoint<List<_i8.Teacher>>(
+        'teacherCourseEndpoints',
+        'getTeachersByCourse',
+        {'courseId': courseId},
+      );
+
+  _i3.Future<List<_i6.Course>> getCoursesByTeacher(int teacherId) =>
+      caller.callServerEndpoint<List<_i6.Course>>(
+        'teacherCourseEndpoints',
+        'getCoursesByTeacher',
+        {'teacherId': teacherId},
+      );
+
+  _i3.Future<bool> isTeacherAssigned({
+    required int teacherId,
+    required int courseId,
+  }) => caller.callServerEndpoint<bool>(
+    'teacherCourseEndpoints',
+    'isTeacherAssigned',
+    {
+      'teacherId': teacherId,
+      'courseId': courseId,
+    },
+  );
+
+  _i3.Future<_i11.TeacherCourse?> getTeacherCourseByTeacherAndCourse({
+    required int teacherId,
+    required int courseId,
+  }) => caller.callServerEndpoint<_i11.TeacherCourse?>(
+    'teacherCourseEndpoints',
+    'getTeacherCourseByTeacherAndCourse',
+    {
+      'teacherId': teacherId,
+      'courseId': courseId,
     },
   );
 }
@@ -414,7 +688,7 @@ class Client extends _i2.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
          host,
-         _i8.Protocol(),
+         _i9.Protocol(),
          securityContext: securityContext,
          streamingConnectionTimeout: streamingConnectionTimeout,
          connectionTimeout: connectionTimeout,
@@ -426,8 +700,11 @@ class Client extends _i2.ServerpodClientShared {
     emailIdp = EndpointEmailIdp(this);
     jwtRefresh = EndpointJwtRefresh(this);
     auth = EndpointAuth(this);
+    courseEndpoints = EndpointCourseEndpoints(this);
     studentEndpoints = EndpointStudentEndpoints(this);
     teacherEndpoints = EndpointTeacherEndpoints(this);
+    studentCourseEndpoints = EndpointStudentCourseEndpoints(this);
+    teacherCourseEndpoints = EndpointTeacherCourseEndpoints(this);
     modules = Modules(this);
   }
 
@@ -437,9 +714,15 @@ class Client extends _i2.ServerpodClientShared {
 
   late final EndpointAuth auth;
 
+  late final EndpointCourseEndpoints courseEndpoints;
+
   late final EndpointStudentEndpoints studentEndpoints;
 
   late final EndpointTeacherEndpoints teacherEndpoints;
+
+  late final EndpointStudentCourseEndpoints studentCourseEndpoints;
+
+  late final EndpointTeacherCourseEndpoints teacherCourseEndpoints;
 
   late final Modules modules;
 
@@ -448,8 +731,11 @@ class Client extends _i2.ServerpodClientShared {
     'emailIdp': emailIdp,
     'jwtRefresh': jwtRefresh,
     'auth': auth,
+    'courseEndpoints': courseEndpoints,
     'studentEndpoints': studentEndpoints,
     'teacherEndpoints': teacherEndpoints,
+    'studentCourseEndpoints': studentCourseEndpoints,
+    'teacherCourseEndpoints': teacherCourseEndpoints,
   };
 
   @override

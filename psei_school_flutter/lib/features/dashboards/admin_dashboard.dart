@@ -104,6 +104,48 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
                 ),
               ),
             ),
+            SizedBox(width: 20),
+            GestureDetector(
+              onTap: () {
+                context.go('/course-list');
+              },
+              child: Card(
+                color: const Color.fromARGB(255, 185, 226, 255),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                margin: const EdgeInsets.all(16),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 250,
+                  width: 300,
+                  padding: const EdgeInsets.all(16),
+                  child: Text('Course Management', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                ),
+              ),
+            ),
+            SizedBox(width: 20),
+            GestureDetector(
+              onTap: () {
+                context.go('/course-admission');
+              },
+              child: Card(
+                color: const Color.fromARGB(255, 185, 226, 255),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                margin: const EdgeInsets.all(16),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 250,
+                  width: 300,
+                  padding: const EdgeInsets.all(16),
+                  child: Text('Add Course', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
+                ),
+              ),
+            ),
           
 
           
